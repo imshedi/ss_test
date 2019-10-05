@@ -1,12 +1,4 @@
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdbool.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <sys/select.h>
+#include "ctest.h"
 
 static char **genv;
 static char **gargv;
@@ -43,13 +35,13 @@ static void fun(void)
 
 #if defined(USE_FCNTL) && !defined(USE_SELECT)
 	int32_t flgs;
-	
+
 	flgs = fcntl(fd, F_GETFL, 0);
 	if (flgs < 0) {
 		fprintf(stderr, "fcntl get error\n");
 		return;
 	}
-	
+
 	flgs = fcntl(fd, F_SETFL, flgs | O_NONBLOCK);
 	if (flgs < 0) {
 		fprintf(stderr, "fcntl set error\n");
@@ -66,7 +58,7 @@ static void fun(void)
 #if defined(USE_SELECT) && !defined(USE_FCNTL)
 	fd_set set;
 	struct timeval t_out;
-	
+
 	FD_ZERO(&set);
 	FD_SET(fd, &set);
 
@@ -85,7 +77,7 @@ static void fun(void)
 		return;
 	}
 
-	printf("read from %s success\n", FNAME); 
+	printf("read from %s success\n", FNAME);
 #endif	/*! USE_SELECT && !USE_FCNTL */
 
 #if defined(USE_SELECT) || defined(USE_FCNTL)
@@ -93,7 +85,7 @@ static void fun(void)
 #endif	/*! USE_SELECT || USE_FCNTL */
 }
 
-int main(int32_t argc, char **argv, char **env)
+int32_t main(int32_t argc, char **argv, char **env)
 {
 	genv = env;
 	gargc = argc;
