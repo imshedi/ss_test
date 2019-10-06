@@ -1,0 +1,44 @@
+## Author	Shreenidhi S L
+## Date		07-July-2018
+## Brief	Builds an executable for each C file in directory
+
+CC = gcc
+CFLAGS = -Wall -Wextra -g
+LDFLAGS = -lpthread -lm
+INCDIRS = ./
+HDRS = ./*.h
+SRCS = $(notdir $(wildcard *.c))
+OUTS = $(SRCS:.c=.out)
+
+.PHONY: clean
+
+Q = @
+ifeq ("$(origin V)", "command line")
+ifneq ($(V), 1)
+	Q =
+endif
+endif
+
+all:
+	$(Q)for fname in $(SRCS); do \
+		echo "CC $$fname"; \
+		make -s $$(basename $$fname .c); \
+	done
+
+clean:
+	@rm -rf ./*.out ./*.o ./*~ $(OBJDIR) ./*.exe ./*.out.*
+	@echo "Removing all output files... done"
+
+## Multiline comment using if
+ifeq (0, 1)
+	$(CC) -o $$(basename $$fname .o).out $$fname $(LDFLAGS);
+	echo "CC $$(realpath $$fname)";
+
+	(Q)for fname in $(OUTS); do \
+		mv $$fname $$(basename $$fname .exe).out; \
+	done
+
+	make -s $$(basename $$fname .c);
+	make $$(basename $$fname .c) > /dev/null;
+	make --no-print-directory $$(basename $$fname .c) > /dev/null;
+endif
