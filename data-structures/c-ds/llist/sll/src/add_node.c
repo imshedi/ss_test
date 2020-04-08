@@ -2,17 +2,17 @@
 
 NODE *add_node(NODE *list, int data)
 {
-	NODE *tmp;
+    NODE *tmp;
 
-	GETMEM(tmp, NODE, sizeof(NODE));
-	CHECK(!tmp);
+    GETMEM(tmp, NODE, sizeof(NODE));
+    CHECK(!tmp);
 
-	tmp->data = data;
+    tmp->data = data;
 
-	if (!list)
-		return tmp;
-
-        tmp->next = list;
-
+    if (!list)
         return tmp;
+
+    tmp->next = list;
+
+    return tmp;
 }

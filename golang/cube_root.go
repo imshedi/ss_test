@@ -9,8 +9,8 @@ func croot(num big.Int) big.Int {
 	var first big.Int
 	var last big.Int
 
-	if num < big.Int(2) {
-		return big.NewInt(num)
+	if num < 2 {
+		return num
 	}
 
 	/*

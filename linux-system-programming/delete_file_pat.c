@@ -1,5 +1,6 @@
 /* Use this program with extreme caution */
 #define _GNU_SOURCE
+#include <ctype.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -37,9 +38,9 @@ static int32_t _del_pattern(char *pattern)
 				continue;
 		}
 
-                printf("Are you sure to delete: %s [y/n]\n", entry->d_name);
-                if (getchar() != 'y')
-                        continue;
+        printf("Are you sure to delete: %s [y/n]\n", entry->d_name);
+        if (tolower(getchar()) != 'y')
+            continue;
 
 		printf("Deleting: %s\n", entry->d_name);
 		remove(entry->d_name);

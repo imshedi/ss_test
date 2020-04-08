@@ -45,7 +45,6 @@ int main(int argc, char **argv)
                 my_addr.sin_port = htons(12000);
                 my_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
 
-
                 if (connect(cfd, (struct sockaddr *)&my_addr, sizeof(my_addr))) {
                         perror("Error in Connection\n");
                         goto error;
@@ -56,7 +55,7 @@ int main(int argc, char **argv)
         while (ret != EXIT_SUCCESS) {
                 char buf[32] = {0};
 
-                printf("\n--- Send end to end session, exit to end everything ---\n");
+                printf("\n--- Send 'quit' to end session, 'exit' to end everything ---\n");
 
                 clear_stdin();
                 printf("Enter your message: ");
@@ -77,7 +76,7 @@ int main(int argc, char **argv)
                 }
                 printf("Server replied: %s\n", buf);
 
-                if (!strcmp(buf, "exit") || !strcmp(buf, "end"))
+                if (!strcmp(buf, "exit") || !strcmp(buf, "quit"))
                         ret = EXIT_SUCCESS;
         }
 
@@ -87,4 +86,3 @@ error:
 
         return ret;
 }
-

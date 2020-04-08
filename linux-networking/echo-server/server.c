@@ -85,7 +85,7 @@ int main(void)
                 while (1) {
                         char buf[32] = {0};
 
-                        printf("\n--- Send end to end session, exit to end everything ---\n");
+                        printf("\n--- Send 'quit' to end session, 'exit' to end everything ---\n");
 
                         if (recv(acc, buf, sizeof(buf), 0) < 1) {
                                 perror("Unable to receive - Client disconnected\n");
@@ -103,7 +103,7 @@ int main(void)
                                 break;
                         }
 
-                        if (!strcmp(buf, "end"))
+                        if (!strcmp(buf, "quit"))
                                 break;
                 }
                 close(acc);
